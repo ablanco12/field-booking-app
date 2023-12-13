@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Col, Container, Dropdown, Button } from 'react-bootstrap';
+import { Row, Col, Container, Dropdown, Button, Modal } from 'react-bootstrap';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -14,12 +14,21 @@ const HomeScreen = () => {
     },
   ]);
 
+  const [showModal, setShowModal] = useState(false);
+
   const handleSelect = (ranges) => {
     setSelectionRange([ranges.selection]);
   };
 
+  const handleModalClose = () => setShowModal(false);
+  const handleModalShow = () => setShowModal(true);
+
   // Example array of baseball fields
-  const baseballFields = ['Titan Stadium', 'Field 2', 'Field 3'];
+  const baseballFields = [
+    'Pistol Pete Field',
+    'City Slicka Field',
+    'Joban Field',
+  ];
 
   return (
     <>
@@ -58,7 +67,7 @@ const HomeScreen = () => {
         {/* Baseball Field Information and Booking Calendar */}
         <Row className="justify-content-center my-4">
           <Col md={6} className="text-center">
-            <h1>Titan Stadium</h1>
+            <h1>Pistol Pete Field</h1>
             <p>
               5622 Ray Ellison San Antonio TX 78242
               <br />
@@ -101,7 +110,11 @@ const HomeScreen = () => {
               {/* Full width */}
             </div>
             <div>
-              <Button variant="primary" className="w-10">
+              <Button
+                variant="primary"
+                className="w-10"
+                onClick={handleModalShow}
+              >
                 Contact Us
               </Button>{' '}
               {/* Full width */}
@@ -109,6 +122,23 @@ const HomeScreen = () => {
           </Col>
         </Row>
 
+        {/* Modal for Contact Us */}
+        <Modal show={showModal} onHide={handleModalClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Contact Information</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {/* Placeholder contact information */}
+            <p>Email: contact@example.com</p>
+            <p>Phone: (123) 456-7890</p>
+            {/* Add more contact information as needed */}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleModalClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
         {/* Additional content can go here */}
       </Container>
     </>
